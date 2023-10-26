@@ -1,2 +1,2 @@
-# internship-aston-hw3
+# internship-hw3
 internship tasks
