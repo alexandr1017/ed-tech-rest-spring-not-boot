@@ -71,6 +71,7 @@ public class CourseServiceImpl implements CourseService {
         course.setDuration(courseDto.getDuration());
         course.setPrice(courseDto.getPrice());
         course.setCreatingDate(LocalDate.now());
+
         courseRepository.save(course);
     }
 

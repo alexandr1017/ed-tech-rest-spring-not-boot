@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDto> findAll() {
-        return studentRepository.findAll().stream().map((student -> {
+        return studentRepository.findAll().stream().map(student -> {
                     List<Object[]> result = studentRepository.findCoursesForStudent(student.getId());
                     List<Course> courses = result.stream()
                             .map(Course::toEntity)
@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
                     StudentDto dto = StudentDto.toDto(student);
                     dto.setCourseDtos(courseDtos);
                     return dto;
-                }))
+                })
                 .collect(Collectors.toList());
     }
 
@@ -66,6 +66,7 @@ public class StudentServiceImpl implements StudentService {
         student.setName(studentDto.getName());
         student.setAge(studentDto.getAge());
         student.setRegistrationDate(LocalDate.now());
+
         studentRepository.save(student);
     }
 
