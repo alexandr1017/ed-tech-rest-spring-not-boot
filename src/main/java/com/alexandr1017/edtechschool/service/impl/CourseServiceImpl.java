@@ -29,15 +29,12 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseDto> findAll() {
         return courseRepository.findAll().stream()
                 .map(course -> {
-                    List<Object[]> result = courseRepository.findStudentsByCourse(course.getId());
-                    List<Student> students = result.stream()
+                    List<StudentDto> studentDtos
+                            = courseRepository.findStudentsByCourse(course.getId())
+                            .stream()
                             .map(Student::toEntity)
-                            .collect(Collectors.toList());
-
-                    List<StudentDto> studentDtos = students.stream()
                             .map(StudentDto::toDto)
                             .collect(Collectors.toList());
-
                     CourseDto dto = CourseDto.toDto(course);
                     dto.setStudentDtos(studentDtos);
                     return dto;
@@ -49,11 +46,14 @@ public class CourseServiceImpl implements CourseService {
     public CourseDto getCourseById(int courseId) {
         return courseRepository.findById(courseId)
                 .map(course -> {
-                    List<Object[]> result = courseRepository.findStudentsByCourse(course.getId());
-                    List<Student> students = result.stream()
+                    List<StudentDto> studentDtos
+                            = courseRepository
+                            .findStudentsByCourse(course.getId())
+                            .stream()
                             .map(Student::toEntity)
+                            .map(StudentDto::toDto)
                             .collect(Collectors.toList());
-                    List<StudentDto> studentDtos = students.stream().map(StudentDto::toDto).collect(Collectors.toList());
+
                     return new CourseDto(
                             course.getId(),
                             course.getName(),

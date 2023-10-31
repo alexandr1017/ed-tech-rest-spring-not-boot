@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface TeacherService {
     List<TeacherDto> findAll();
+
     TeacherDto getTeacherById(int teacherId);
 
     void saveTeacher(TeacherDto teacherDto);

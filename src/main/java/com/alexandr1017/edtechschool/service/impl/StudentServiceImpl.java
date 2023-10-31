@@ -23,12 +23,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<StudentDto> findAll() {
         return studentRepository.findAll().stream().map(student -> {
-                    List<Object[]> result = studentRepository.findCoursesForStudent(student.getId());
-                    List<Course> courses = result.stream()
+                    List<CourseDto> courseDtos
+                            = studentRepository.findCoursesForStudent(student.getId())
+                            .stream()
                             .map(Course::toEntity)
-                            .collect(Collectors.toList());
-
-                    List<CourseDto> courseDtos = courses.stream()
                             .map(CourseDto::toDto)
                             .collect(Collectors.toList());
 
@@ -43,13 +41,13 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto getStudentById(int studentId) {
         return studentRepository.findById(studentId).map(student -> {
-            List<Object[]> result = studentRepository.findCoursesForStudent(student.getId());
-            List<Course> courses = result.stream()
+            List<CourseDto> courseDtos
+                    = studentRepository.findCoursesForStudent(student.getId())
+                    .stream()
                     .map(Course::toEntity)
-                    .collect(Collectors.toList());
-            List<CourseDto> courseDtos = courses.stream()
                     .map(CourseDto::toDto)
                     .collect(Collectors.toList());
+
             return new StudentDto(
                     student.getId(),
                     student.getName(),

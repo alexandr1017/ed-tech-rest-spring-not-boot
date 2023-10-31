@@ -9,6 +9,7 @@ public interface CourseService {
 
 
     List<CourseDto> findAll();
+
     CourseDto getCourseById(int courseId);
 
     void saveCourse(CourseDto courseDto);
