@@ -1,6 +1,8 @@
 package com.alexandr1017.edtechschool.model;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.time.LocalDate;
 
 import java.util.List;
@@ -35,6 +37,16 @@ public class Course {
     private List<Student> students;
 
     public Course() {
+    }
+
+    public static Course toEntity(Object[] row) {
+        Course course = new Course();
+        course.setId((Integer) row[0]);
+        course.setName((String) row[3]);
+        course.setDuration((Integer) row[2]);
+        course.setPrice((Integer) row[4]);
+        course.setCreatingDate(((Date) row[1]).toLocalDate());
+        return course;
     }
 
     public int getId() {

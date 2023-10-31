@@ -25,7 +25,7 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/")
     @ResponseBody
     public List<CourseDto> showCourses() {
         return courseService.findAll();
@@ -41,9 +41,8 @@ public class CourseController {
         courseService.saveCourse(course);
     }
 
-    @PutMapping("/{id}")
-    public void updateCourse(@PathVariable int id, @RequestBody CourseDto course) {
-        course.setId(id);
+    @PutMapping("/")
+    public void updateCourse(@RequestBody CourseDto course) {
         courseService.saveCourse(course);
     }
 
